@@ -1,7 +1,7 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base:latest
 FROM $BUILD_FROM
 
-# Install system dependencies
+# Install required system dependencies
 RUN apk add --no-cache \
     cairo \
     cairo-dev \
@@ -9,13 +9,20 @@ RUN apk add --no-cache \
     pango-dev \
     gdk-pixbuf \
     gdk-pixbuf-dev \
-    py3-pip
+    py3-pip \
+    python3-dev \
+    musl-dev \
+    gcc \
+    libc-dev \
+    libffi-dev
 
-# Install Python libraries
-RUN pip install cairosvg
+# Upgrade pip and install CairoSVG
+RUN pip install --upgrade pip && pip install cairosvg
 
-# Copy the script
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
+# Copy the conversion script
+COPY convert.py /convert.py
 
-CMD [ "/run.sh" ]
+# Make script executable
+RUN chmod +x /convert.py
+
+CMD ["tail", "-f", "/dev/null"]
