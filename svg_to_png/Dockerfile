@@ -1,10 +1,11 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base:17.1.3
 FROM $BUILD_FROM
 
-# Install Python and pip
+# Install Python, CairoSVG, and dependencies using APK
 RUN apk add --no-cache \
     python3 \
     py3-pip \
+    py3-cairosvg \
     cairo \
     pango \
     gdk-pixbuf \
@@ -13,11 +14,6 @@ RUN apk add --no-cache \
     libc-dev \
     libffi-dev \
     python3-dev
-
-# Upgrade pip and install CairoSVG
-RUN python3 -m ensurepip && \
-    python3 -m pip install --no-cache-dir --upgrade pip && \
-    python3 -m pip install --no-cache-dir cairosvg
 
 # Copy script
 COPY convert.py /convert.py
