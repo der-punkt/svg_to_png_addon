@@ -1,6 +1,14 @@
 
 {
-    "name": "SVG to PNG Add-ons",
+    "name": "SVG to PNG Converter",
     "url": "https://github.com/der-punkt/svg_to_png_addon",
-    "maintainer": "der_punkt <webdev.bg@gmail.com>"
-}
+    "maintainer": "der_punkt <webdev.bg@gmail.com>",
+    "addons": [
+        {
+          "name": "SVG to PNG Converter Add-on",
+          "slug": "svg_to_png",
+          "description": "A Home Assistant add-on for converting SVG images to PNG.",
+          "url": "https://github.com/der-punkt/svg_to_png_addon/tree/main/addon",
+          "version": "1.1.1"
+        }
+      ]}

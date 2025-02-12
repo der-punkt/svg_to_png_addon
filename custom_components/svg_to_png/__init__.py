@@ -31,8 +31,12 @@ def setup(hass: HomeAssistant, config: ConfigType):
                 check=True
             )
             _LOGGER.info("Conversion successful")
+        except FileNotFoundError:
+            raise RuntimeError("Docker not found. Ensure Home Assistant has access to Docker.")
         except subprocess.CalledProcessError as e:
-            _LOGGER.error(f"Conversion failed: {e}")
+            raise RuntimeError(f"Conversion failed: {e}")
+        except PermissionError:
+            raise RuntimeError("Permission denied. Ensure Home Assistant can run Docker commands.")
 
     # Register the service
     hass.services.register("svg_to_png", "convert", handle_convert, schema=SERVICE_SCHEMA)
