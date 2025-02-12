@@ -18,6 +18,9 @@ RUN apk add --no-cache \
 # # Copy the Home Assistant custom component
 # COPY custom_components/svg_to_png /config/custom_components/svg_to_png
 # RUN chmod -R 755 /config/custom_components/svg_to_png
+# Copy the Home Assistant custom components into the container
+RUN mkdir -p /config/custom_components/svg_to_png
+COPY ../custom_components/svg_to_png /config/custom_components/svg_to_png
 
 # Copy the conversion script
 COPY convert.py /convert.py
