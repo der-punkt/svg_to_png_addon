@@ -1,0 +1,9 @@
+convert:
+  description: "Convert an SVG file to PNG"
+  fields:
+    input_path:
+      description: "Path to the input SVG file"
+      example: "/media/tmp/input.svg"
+    output_path:
+      description: "Path to save the converted PNG file"
+      example: "/media/tmp/output.png"

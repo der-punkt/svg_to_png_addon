@@ -15,8 +15,16 @@ RUN apk add --no-cache \
     libffi-dev \
     python3-dev
 
-# Copy script
+# Copy the Home Assistant custom component
+COPY custom_components/svg_to_png /config/custom_components/svg_to_png
+RUN chmod -R 755 /config/custom_components/svg_to_png
+
+# Copy the conversion script
 COPY convert.py /convert.py
 RUN chmod +x /convert.py
 
-CMD ["python3", "/convert.py"]
+# Copy starting script
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
+
+CMD [ "/run.sh" ]

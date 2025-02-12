@@ -1,10 +1,14 @@
 name: "SVG to PNG Converter"
-version: "1.0.3"
+version: "1.1.0"
+stage: "experimental"
 slug: "svg_to_png"
 description: "A Home Assistant add-on to convert SVG images to PNG."
 url: "https://github.com/der-punkt/svg_to_png_addon"
 startup: application
 boot: auto
+hassio_api: true  # Enable Home Assistant API access
+hassio_role: "admin"
+host_network: false  # Change to true if needed
 ingress: false
 arch:
   - aarch64
@@ -13,3 +17,5 @@ arch:
 init: false
 options: {}
 schema: {}
+privileged:
+  - "ALL"  # Grants full privileged access (use with caution)

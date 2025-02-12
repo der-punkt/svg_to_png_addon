@@ -1,0 +1,10 @@
+{
+    "domain": "svg_to_png",
+    "name": "SVG to PNG Converter",
+    "version": "1.1.0",
+    "documentation": "https://github.com/der-punkt/svg_to_png_addon",
+    "dependencies": [],
+    "codeowners": ["@der-punkt"],
+    "requirements": [],
+    "iot_class": "local_polling"
+}
