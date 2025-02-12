@@ -13,31 +13,44 @@ else
     echo "✍️ /config/ can be written."
 fi
 
+SLUG="svg_to_png"
+CUSTOM_COMPONENT_PATH="/config/custom_components/$SLUG"
+VERSION_FILE="$CUSTOM_COMPONENT_PATH/.version"
+ADDON_VERSION="1.3.1"  # Change this when updating the add-on
+
 # Ensure the custom_components directory exists
-if mkdir -p /config/custom_components/svg_to_png; then
-    echo "✅ Created directory /config/custom_components/svg_to_png"
+if mkdir -p "$CUSTOM_COMPONENT_PATH"; then
+    echo "✅ Created directory $CUSTOM_COMPONENT_PATH"
 else
-    echo "❌ Failed to create directory /config/custom_components/svg_to_png"
+    echo "❌ Failed to create directory $CUSTOM_COMPONENT_PATH"
     exit 1
 fi
 
-# Copy the custom component files only if they are missing
-if [ ! -f "/config/custom_components/svg_to_png/__init__.py" ]; then
-    if cp -r /tmp/svg_to_png/* /config/custom_components/svg_to_png/; then
-        echo "✅ Copied svg_to_png integration to /config/custom_components/"
+# Check if version exists and matches
+if [ -f "$VERSION_FILE" ] && [ "$(cat $VERSION_FILE)" = "$ADDON_VERSION" ]; then
+    echo "⚠️ $SLUG integration is up-to-date (version $ADDON_VERSION). Skipping copy."
+else
+    echo "🔄 Updating $SLUG integration to version $ADDON_VERSION..."
+
+    # Copy the custom component files
+    if cp -r /tmp/$SLUG/* "$CUSTOM_COMPONENT_PATH/"; then
+        echo "✅ Copied $SLUG integration to $CUSTOM_COMPONENT_PATH"
     else
-        echo "❌ Failed to copy files to /config/custom_components/"
+        echo "❌ Failed to copy files to $CUSTOM_COMPONENT_PATH"
         exit 1
     fi
 
-    if chmod -R 644 /config/custom_components/svg_to_png; then
-        echo "✅ Set correct permissions on /config/custom_components/svg_to_png"
+    # Set correct permissions
+    if chmod -R 644 "$CUSTOM_COMPONENT_PATH"; then
+        echo "✅ Set correct permissions on $CUSTOM_COMPONENT_PATH"
     else
-        echo "❌ Failed to set permissions on /config/custom_components/svg_to_png"
+        echo "❌ Failed to set permissions on $CUSTOM_COMPONENT_PATH"
         exit 1
     fi
-else
-    echo "⚠️ svg_to_png integration already exists. Skipping copy."
+
+    # Save the current version
+    echo "$ADDON_VERSION" > "$VERSION_FILE"
+    echo "✅ Version updated to $ADDON_VERSION"
 fi
 
 exec tail -f /dev/null
