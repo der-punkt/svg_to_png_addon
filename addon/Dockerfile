@@ -25,9 +25,6 @@ RUN chmod +x /run.sh
 
 # Copy the custom component at runtime instead of during build
 COPY custom_components/svg_to_png /tmp/svg_to_png
-RUN mkdir -p /config/custom_components/svg_to_png && \
-    cp -r /tmp/svg_to_png/* /config/custom_components/svg_to_png/ && \
-    rm -rf /tmp/svg_to_png
 
 # Fix permissions
 RUN chmod -R 644 /config/custom_components/svg_to_png
