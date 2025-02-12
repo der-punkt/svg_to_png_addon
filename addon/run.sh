@@ -5,6 +5,12 @@ echo "🚀 SVG to PNG Add-on Started..."
 # Wait for /config/ to be available (just in case)
 sleep 2
 
+# Ensure we can write to /config/
+if [ ! -w /config ]; then
+    echo "❌ Error: /config/ is read-only. Cannot copy files."
+    exit 1
+fi
+
 # Ensure the custom_components directory exists in Home Assistant
 mkdir -p /config/custom_components/svg_to_png
 
@@ -17,3 +23,4 @@ else
     echo "⚠️ svg_to_png integration already exists. Skipping copy."
 fi
 
+exec tail -f /dev/null

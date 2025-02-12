@@ -1,5 +1,5 @@
 name: "SVG to PNG Converter"
-version: "1.2.6"
+version: "1.2.7"
 # stage: "experimental"
 slug: "svg_to_png"
 description: "A Home Assistant add-on to convert SVG images to PNG."
@@ -21,3 +21,4 @@ schema:
   full_access: bool?
 map:
   - config  # ✅ Give access to /config/ inside Home Assistant
+full_access: true  # ✅ Enable full system access (Required)
