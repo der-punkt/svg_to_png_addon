@@ -7,6 +7,7 @@ mkdir -p /config/custom_components/svg_to_png
 # Copy the custom component files only if they are missing
 if [ ! -f "/config/custom_components/svg_to_png/__init__.py" ]; then
     cp -r /tmp/svg_to_png/* /config/custom_components/svg_to_png/
+    chmod -R 644 /config/custom_components/svg_to_png  # ✅ Fix permissions at runtime
     echo "✅ Copied svg_to_png integration to /config/custom_components/"
 else
     echo "⚠️ svg_to_png integration already exists. Skipping copy."
