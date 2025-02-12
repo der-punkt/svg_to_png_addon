@@ -15,13 +15,6 @@ RUN apk add --no-cache \
     libffi-dev \
     python3-dev
 
-# # Copy the Home Assistant custom component
-# COPY custom_components/svg_to_png /config/custom_components/svg_to_png
-# RUN chmod -R 755 /config/custom_components/svg_to_png
-# Copy the Home Assistant custom components into the container
-RUN mkdir -p /config/custom_components/svg_to_png
-COPY custom_components/svg_to_png /config/custom_components/svg_to_png
-
 # Copy the conversion script
 COPY convert.py /convert.py
 RUN chmod +x /convert.py
@@ -29,5 +22,14 @@ RUN chmod +x /convert.py
 # Copy starting script
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
+
+# Copy the custom component at runtime instead of during build
+COPY custom_components/svg_to_png /tmp/svg_to_png
+RUN mkdir -p /config/custom_components/svg_to_png && \
+    cp -r /tmp/svg_to_png/* /config/custom_components/svg_to_png/ && \
+    rm -rf /tmp/svg_to_png
+
+# Fix permissions
+RUN chmod -R 644 /config/custom_components/svg_to_png
 
 CMD [ "/run.sh" ]
