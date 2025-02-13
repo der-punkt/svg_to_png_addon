@@ -13,11 +13,14 @@ RUN apk add --no-cache \
     gcc \
     libc-dev \
     libffi-dev \
-    python3-dev
-
-# Install Flask
-RUN pip3 install flask
-
+    python3-dev \
+    py3-setuptools \
+    py3-wheel \
+    py3-virtualenv
+    
+    # Install Flask using pip
+    RUN pip3 install --no-cache-dir flask
+    
 # Copy the conversion script
 COPY convert.py /convert.py
 RUN chmod +x /convert.py
