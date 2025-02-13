@@ -13,8 +13,10 @@ RUN apk add --no-cache \
     gcc \
     libc-dev \
     libffi-dev \
-    python3-dev \
-    flask
+    python3-dev
+
+# Install Flask
+RUN pip3 install flask
 
 # Copy the conversion script
 COPY convert.py /convert.py
@@ -27,6 +29,6 @@ RUN chmod +x /run.sh
 # Copy the custom component at runtime instead of during build
 COPY custom_components/svg_to_png /tmp/svg_to_png
 
-EXPOSE $flask_port
+EXPOSE 5000
 
 CMD [ "/run.sh" ]
