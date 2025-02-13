@@ -13,8 +13,7 @@ RUN apk add --no-cache \
     gcc \
     libc-dev \
     libffi-dev \
-    python3-dev \
-    jq  # Add jq for reading configuration
+    python3-dev
 
 # Copy the conversion script
 COPY convert.py /convert.py

@@ -17,6 +17,7 @@ SLUG="svg_to_png"
 CUSTOM_COMPONENT_PATH="/config/custom_components/$SLUG"
 VERSION_FILE="$CUSTOM_COMPONENT_PATH/.version"
 ADDON_VERSION="1.4.0"  # Change this when updating the add-on
+CONFIG_PATH=/data/options.json
 
 # Ensure the custom_components directory exists
 if mkdir -p "$CUSTOM_COMPONENT_PATH"; then
@@ -57,6 +58,6 @@ else
 fi
 
 # Read Flask app port from add-on configuration
-FLASK_PORT=$(jq --raw-output '.flask_port // 5000' /data/options.json)
+FLASK_PORT="$(bashio::config 'flask_port')" || 5000
 echo "🌐 Starting the Flask app on port $FLASK_PORT..."
 exec python3 convert.py
