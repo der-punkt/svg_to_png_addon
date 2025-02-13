@@ -13,7 +13,8 @@ RUN apk add --no-cache \
     gcc \
     libc-dev \
     libffi-dev \
-    python3-dev
+    python3-dev \
+    flask
 
 # Copy the conversion script
 COPY convert.py /convert.py

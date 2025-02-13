@@ -16,7 +16,7 @@ fi
 SLUG="svg_to_png"
 CUSTOM_COMPONENT_PATH="/config/custom_components/$SLUG"
 VERSION_FILE="$CUSTOM_COMPONENT_PATH/.version"
-ADDON_VERSION="1.4.1"  # Change this when updating the add-on
+ADDON_VERSION="1.4.2"  # Change this when updating the add-on
 CONFIG_PATH=/data/options.json
 
 # Ensure the custom_components directory exists
