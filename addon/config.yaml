@@ -15,10 +15,6 @@ arch:
   - amd64
   - armv7
 init: false
-options: []
-schema: []
 map:
   - config:rw  # ✅ Give access to /config/ inside Home Assistant to copy service files
-ports:
-  "5000/tcp": 5000
 full_access: true
