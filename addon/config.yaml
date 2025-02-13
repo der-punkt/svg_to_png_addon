@@ -15,37 +15,10 @@ arch:
   - amd64
   - armv7
 init: false
-options:
-  full_access:
-    name: "Full Access"
-    description: "Enable full access to the add-on."
-    default: true
-    example: true
-    required: true
-  flask_port:
-    name: "Flask Port"
-    description: "The port for the Flask server."
-    default: 5000
-    example: 5000
-    required: false
-  log_level:
-    name: "Log Level"
-    description: "The log level for the add-on."
-    default: "info"
-    example: "info"
-    selector:
-      info: "Info"
-      warning: "Warning"
-      error: "Error"
-    required: true
-schema:
-  full_access: bool?
-  flask_port: int?
-  log_level: str?
+options: []
+schema: []
 map:
   - config:rw  # ✅ Give access to /config/ inside Home Assistant to copy service files
 ports:
-  - container: ${flask_port}
-    host: ${flask_port}
-full_access: ${full_access}
-log_level: ${log_level}
+  "5000/tcp": 5000
+full_access: true

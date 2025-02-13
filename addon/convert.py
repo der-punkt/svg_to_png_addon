@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-# Default port (can be overridden by environment variable)
+# Default port
 DEFAULT_PORT = 5000
 
 def convert_file_obj(file_obj):
@@ -135,7 +135,5 @@ if __name__ == '__main__':
         convert_path(input_file, output_file)
     
     else: # Run as Flask server
-        debug_mode = os.environ.get("FLASK_DEBUG", "False").lower() in ["true", "1", "t"]
-        port = int(os.environ.get("FLASK_PORT", DEFAULT_PORT))
-        app.run(debug=debug_mode, host='0.0.0.0', port=port)  # Use the configured port
-        logger.info(f"Flask server started on port {port}") # Log the port for verification
+        app.run(host='0.0.0.0', port=DEFAULT_PORT)  # Use the configured port
+        logger.info(f"Flask server started on port {DEFAULT_PORT}") # Log the port for verification

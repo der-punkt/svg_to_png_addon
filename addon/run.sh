@@ -57,7 +57,5 @@ else
     echo "🔄 Please restart Home Assistant for the changes to take effect!"
 fi
 
-# Read Flask app port from add-on configuration
-FLASK_PORT="$(bashio::config 'flask_port')" || 5000
-echo "🌐 Starting the Flask app on port $FLASK_PORT..."
+echo "🌐 Starting the Flask app..."
 exec python3 convert.py
