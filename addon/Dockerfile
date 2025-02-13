@@ -18,8 +18,8 @@ RUN apk add --no-cache \
     py3-wheel \
     py3-virtualenv
     
-# Install Flask using pip
-RUN pip3 install --no-cache-dir flask
+# Upgrade pip and install Flask using pip
+RUN pip3 install --no-cache-dir --upgrade pip && pip3 install --no-cache-dir flask
     
 # Copy the conversion script
 COPY convert.py /convert.py

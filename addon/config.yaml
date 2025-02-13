@@ -1,6 +1,6 @@
 name: "SVG to PNG Converter"
-version: "1.4.4"
-# stage: "experimental"
+version: "1.4.5"
+stage: "experimental"
 slug: "svg_to_png"
 description: "A Home Assistant add-on to convert SVG images to PNG."
 url: "https://github.com/der-punkt/svg_to_png_addon/tree/main/addon"
