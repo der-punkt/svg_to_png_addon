@@ -16,7 +16,7 @@ fi
 SLUG="svg_to_png"
 CUSTOM_COMPONENT_PATH="/config/custom_components/$SLUG"
 VERSION_FILE="$CUSTOM_COMPONENT_PATH/.version"
-ADDON_VERSION="1.3.1"  # Change this when updating the add-on
+ADDON_VERSION="1.4.0"  # Change this when updating the add-on
 
 # Ensure the custom_components directory exists
 if mkdir -p "$CUSTOM_COMPONENT_PATH"; then
@@ -51,6 +51,12 @@ else
     # Save the current version
     echo "$ADDON_VERSION" > "$VERSION_FILE"
     echo "✅ Version updated to $ADDON_VERSION"
+
+    # Reminder to restart Home Assistant
+    echo "🔄 Please restart Home Assistant for the changes to take effect!"
 fi
 
-exec tail -f /dev/null
+# Read Flask app port from add-on configuration
+FLASK_PORT=$(jq --raw-output '.flask_port // 5000' /data/options.json)
+echo "🌐 Starting the Flask app on port $FLASK_PORT..."
+exec python3 convert.py

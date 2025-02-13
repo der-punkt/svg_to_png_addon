@@ -1,54 +1,52 @@
-import logging
 import os
+import logging
+
 import requests
-import homeassistant.helpers.config_validation as cv
-import voluptuous as vol
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.helpers.typing import ConfigType
 
 _LOGGER = logging.getLogger(__name__)
 
-SERVICE_SCHEMA = vol.Schema(
-    {
-        vol.Required("input_path"): cv.string,
-        vol.Required("output_path"): cv.string,
-    }
-)
+DOMAIN = "svg_to_png"
 
-def setup(hass: HomeAssistant, config: ConfigType):
-    """Set up the SVG to PNG service."""
-    
-    def handle_convert(call: ServiceCall):
-        """Handle the conversion request."""
-        input_path = call.data["input_path"]
-        output_path = call.data["output_path"]
+def setup(hass: HomeAssistant, config: ConfigType) -> bool:
+    port = config[DOMAIN].get("port", 5000)  # Read port from configuration with default 5000
+    addon_slug = config[DOMAIN].get("addon_slug", "addon_svg_to_png")  # Read addon slug from configuration with default
+    api_endpoint = config[DOMAIN].get("api_endpoint", "/convert")  # Read API endpoint from configuration with default
 
-        _LOGGER.info("Converting %s to %s", input_path, output_path)
+    def handle_convert_svg_to_png(call: ServiceCall) -> None:
+        svg_path = call.data.get("svg_path")
+        png_path = call.data.get("png_path")
 
-        # Build the Supervisor API URL and payload
-        addon_slug = "addon_svg_to_png"  # your add-on slug
-        # The Supervisor API endpoint for executing a command in an add-on:
-        url = f"http://supervisor/api/hassio/addons/{addon_slug}/exec"
-        
-        # Retrieve the Supervisor token (this should be available on a supervised system)
-        token = os.environ.get("HASSIO_TOKEN")
-        if not token:
-            raise RuntimeError("HASSIO_TOKEN not found; ensure Supervisor API access is enabled.")
+        if not svg_path or not png_path:
+            _LOGGER.error("SVG path and PNG path must be provided")
+            return
 
-        headers = {"X-Hassio-Token": token}
-        payload = {
-            "command": ["python3", "/convert.py", input_path, output_path]
-        }
+        if not os.path.isfile(svg_path):
+            _LOGGER.error("SVG file does not exist: %s", svg_path)
+            return
 
         try:
-            # Note: Depending on your use case, you might need to adjust timeout and error handling.
-            response = requests.post(url, headers=headers, json=payload, timeout=60)
-            response.raise_for_status()
-            _LOGGER.info("Conversion successful, response: %s", response.json())
-        except requests.exceptions.RequestException as err:
-            raise RuntimeError(f"Conversion failed: {err}")
+            # Call the svg_to_png addon (assuming it's a function)
+            png_content = svg_to_png(svg_path, port, addon_slug, api_endpoint)
 
-    # Register the service
-    hass.services.register("svg_to_png", "convert", handle_convert, schema=SERVICE_SCHEMA)
-    
+            with open(png_path, "wb") as png_file:
+                png_file.write(png_content)
+
+            _LOGGER.info("Successfully converted SVG to PNG: %s", png_path)
+        except Exception as e:
+            _LOGGER.error("Error converting SVG to PNG: %s", e)
+
+    hass.services.register(DOMAIN, "convert", handle_convert_svg_to_png)
     return True
+
+def svg_to_png(svg_path: str, port: int, addon_slug: str, api_endpoint: str) -> bytes:
+    addon_url = f"http://{addon_slug}:{port}{api_endpoint}"  # Use add-on hostname, port, and API endpoint
+    try:
+        with open(svg_path, 'rb') as f:
+            files = {'file': (os.path.basename(svg_path), f, 'image/svg+xml')}
+            response = requests.post(addon_url, files=files, timeout=10)
+            response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
+            return response.content
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Conversion failed: {e}")

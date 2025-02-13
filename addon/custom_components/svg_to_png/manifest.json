@@ -1,10 +1,27 @@
 {
     "domain": "svg_to_png",
     "name": "SVG to PNG Service",
-    "version": "1.3.1",
+    "version": "1.4.0",
     "documentation": "https://github.com/der-punkt/svg_to_png_addon",
     "dependencies": [],
     "codeowners": ["@der-punkt"],
-    "requirements": [],
-    "iot_class": "local_polling"
+    "requirements": ["requests"],
+    "iot_class": "local_polling",
+    "options": {
+        "port": {
+            "type": "integer",
+            "default": 5000,
+            "description": "Port for the add-on"
+        },
+        "addon_slug": {
+            "type": "string",
+            "default": "addon_svg_to_png",
+            "description": "Slug for the add-on"
+        },
+        "api_endpoint": {
+            "type": "string",
+            "default": "/convert",
+            "description": "API endpoint for the add-on"
+        }
+    }
 }
