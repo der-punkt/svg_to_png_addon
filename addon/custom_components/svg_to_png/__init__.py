@@ -11,7 +11,7 @@ DOMAIN = "svg_to_png"
 
 def setup(hass: HomeAssistant, config: ConfigType) -> bool:
     port = config[DOMAIN].get("port", 5000)  # Read port from configuration with default 5000
-    addon_slug = config[DOMAIN].get("addon_slug", "addon_svg_to_png")  # Read addon slug from configuration with default
+    addon_slug = config[DOMAIN].get("addon_slug", "f38d7a98-svg-to-png").replace("_", "-")  # Read addon slug from configuration with default and replace underscores with hyphens
     api_endpoint = config[DOMAIN].get("api_endpoint", "/convert")  # Read API endpoint from configuration with default
 
     def handle_convert_svg_to_png(call: ServiceCall) -> None:

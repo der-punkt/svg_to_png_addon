@@ -1,7 +1,7 @@
 {
     "domain": "svg_to_png",
     "name": "SVG to PNG Service",
-    "version": "1.4.8",
+    "version": "1.4.9",
     "documentation": "https://github.com/der-punkt/svg_to_png_addon",
     "dependencies": [],
     "codeowners": ["@der-punkt"],
@@ -15,7 +15,7 @@
         },
         "addon_slug": {
             "type": "string",
-            "default": "addon_svg_to_png",
+            "default": "f38d7a98-svg-to-png",
             "description": "Slug for the add-on"
         },
         "api_endpoint": {
