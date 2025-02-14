@@ -16,15 +16,14 @@ This Home Assistant add-on provides a simple way to convert SVG images to PNG fo
 3. Click the **three dots** in the top-right corner and select **Repositories**.
 4. Add the following URL:
    ```
-   https://github.com/your-username/svg_to_png_addon
+   https://github.com/der-punkt/svg_to_png_addon
    ```
 5. Click **Add** and wait for the repository to load.
 
 ### **Step 2: Install the Add-on**
 1. Locate **SVG to PNG Converter** in the add-on store.
 2. Click **Install**.
-3. Once installed, configure the options as needed.
-4. Start the add-on with privileged access (required).
+3. Start the add-on with privileged access (required).
 
 ### **Step 3: Install the service**
 1. Open your `configuration.yaml` file.
