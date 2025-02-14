@@ -3,16 +3,16 @@ FROM $BUILD_FROM
 
 # Install Python, CairoSVG, and dependencies using APK
 RUN apk add --no-cache \
-    python3 \
-    py3-pip \
+#    python3 \
+#    py3-pip \
     py3-cairosvg \
-    cairo \
-    pango \
-    gdk-pixbuf \
-    musl-dev \
-    gcc \
-    libc-dev \
-    libffi-dev \
+#    cairo \
+#    pango \
+#    gdk-pixbuf \
+#    musl-dev \
+#    gcc \
+#    libc-dev \
+#    libffi-dev \
     py3-flask 
     
 # Copy the conversion script
