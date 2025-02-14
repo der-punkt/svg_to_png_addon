@@ -15,8 +15,8 @@ def setup(hass: HomeAssistant, config: ConfigType) -> bool:
     api_endpoint = config[DOMAIN].get("api_endpoint", "/convert")  # Read API endpoint from configuration with default
 
     def handle_convert_svg_to_png(call: ServiceCall) -> None:
-        svg_path = call.data.get("svg_path")
-        png_path = call.data.get("png_path")
+        svg_path = call.data.get("input_path")
+        png_path = call.data.get("output_path")
 
         if not svg_path or not png_path:
             _LOGGER.error("SVG path and PNG path must be provided")
