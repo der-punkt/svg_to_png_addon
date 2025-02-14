@@ -13,40 +13,7 @@ RUN apk add --no-cache \
     gcc \
     libc-dev \
     libffi-dev \
-    python3-dev \
-    py3-setuptools \
-    py3-wheel \
-    py3-virtualenv
-
-RUN \
-    apk add --no-cache --virtual .build-dependencies \
-    g++ \
-    gcc \
-    make \
-    \
-    && apk add --no-cache \
-    nginx-mod-http-lua \
-    lua-resty-http \
-    nginx \
-    cython \
-    \
-    && pip3 install \
-    --no-cache-dir \
-    --prefer-binary \
-    flask \
-    \
-    && find /usr/local \
-    \( -type d -a -name test -o -name tests -o -name '__pycache__' \) \
-    -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
-    -exec rm -rf '{}' + \
-    \
-    && apk del --purge .build-dependencies \
-    && rm -f -r \
-    /etc/nginx \
-    /tmp/*
-    
-# Upgrade pip and install Flask using pip
-RUN pip3 install --no-cache-dir flask
+    py3-flask 
     
 # Copy the conversion script
 COPY convert.py /convert.py
