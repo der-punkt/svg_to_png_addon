@@ -65,6 +65,44 @@ If you encounter issues, make sure:
 - The add-on has sufficient permissions.
 - Docker is running properly.
 
+## AI Agent Development Environment
+
+This repository ships the configuration used by AI coding agents (e.g. GitHub Copilot) so that agents working on the codebase follow a consistent engineering workflow. If you are only using the add-on, you can ignore this section.
+
+### Layout
+
+| Path | Purpose |
+| ---- | ------- |
+| `.agents/skills/` | Installed [agent skills](https://skills.sh) — modular workflow packages (spec → plan → implement → test → review → ship) that give agents structured engineering practices. Each skill lives in `.agents/skills/<name>/SKILL.md`. |
+| `.github/agents/` | Custom agent definitions (`.agent.md`) for the Copilot agent framework — a tiered set of executor and reviewer agents. |
+| `.github/ISSUE_TEMPLATE/` | GitHub issue templates (bug report, feature request). |
+| `skills-lock.json` | Lock file pinning the exact source and content hash of every installed skill, so each machine starts from the same agent setup. |
+
+### Agent tiers (`.github/agents/`)
+
+The agents form an escalation chain plus independent reviewers:
+
+| Agent | Role |
+| ----- | ---- |
+| `execution` | Tier 1 — clearly specified, locally scoped, mechanically verifiable work. Escalates to `reasoning` when judgment is required. |
+| `reasoning` | Tier 2 — analysis, judgment, ambiguity resolution, and cross-component reasoning. Escalates to `advanced-reasoning` when a task remains unresolved. |
+| `advanced-reasoning` | Tier 3 — exceptional work requiring deep system-level reasoning, or unresolved escalations from lower tiers. |
+| `deepseek-review`, `qwen-review` | Read-only, adversarial reviewers that challenge plans, code, and technical claims before approval. They never edit files or run commands. |
+
+Each `.agent.md` file declares its name, description, allowed tools, reasoning effort, model(s), and the agents it may delegate to (`agents:` field).
+
+### Managing skills and `skills-lock.json`
+
+Skills are installed with the skills CLI:
+
+```bash
+npx skills find [query]           # search the skills ecosystem
+npx skills add <owner/repo@skill> # install a skill into .agents/skills/
+npx skills update                 # update installed skills
+```
+
+`skills-lock.json` records, for each installed skill, its `source` (e.g. `addyosmani/agent-skills`), `sourceType`, `skillPath`, and the `computedHash` of the skill content. When you add, update, or remove skills, commit the changed files under `.agents/skills/` together with the updated lock file.
+
 ## Contributing
 Feel free to contribute by submitting **pull requests** or opening **issues** on GitHub!
 
