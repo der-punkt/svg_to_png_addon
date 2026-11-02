@@ -73,6 +73,7 @@ This repository ships the configuration used by AI coding agents (e.g. GitHub Co
 
 | Path | Purpose |
 | ---- | ------- |
+| `AGENTS.md` | Repository rules every agent must follow — project layout, verification commands, the four-place version-sync requirement, and boundaries. |
 | `.agents/skills/` | Installed [agent skills](https://skills.sh) — modular workflow packages (spec → plan → implement → test → review → ship) that give agents structured engineering practices. Each skill lives in `.agents/skills/<name>/SKILL.md`. |
 | `.github/agents/` | Custom agent definitions (`.agent.md`) for the Copilot agent framework — a tiered set of executor and reviewer agents. |
 | `.github/ISSUE_TEMPLATE/` | GitHub issue templates (bug report, feature request). |
