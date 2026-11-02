@@ -1,5 +1,5 @@
 name: "SVG to PNG Converter"
-version: "1.5.0"
+version: "1.5.1"
 stage: "stable"
 slug: "svg_to_png"
 description: "A Home Assistant add-on to convert SVG images to PNG."
