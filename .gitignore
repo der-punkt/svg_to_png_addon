@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Test & conversion artifacts (verify against /tmp or delete after)
+/tmp-conversion-output/
+
+# Editors & OS
+.vscode/
+.idea/
+.DS_Store
