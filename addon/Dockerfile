@@ -7,8 +7,7 @@ RUN apk add --no-cache \
     py3-flask \
     fontconfig \
     font-roboto \
-    font-dejavu \
-    && fc-cache -f
+    font-dejavu
 
 # Copy the conversion script
 COPY convert.py /convert.py
