@@ -68,6 +68,10 @@ If you encounter issues, make sure:
 ## Contributing
 Feel free to contribute by submitting **pull requests** or opening **issues** on GitHub!
 
+## Contributors
+We thank the following contributors for their work on this add-on:
+- [MatAhman](https://github.com/MatAhman) — Added fonts for improved Unicode SVG text rendering ([PR #3](https://github.com/der-punkt/svg_to_png_addon/pull/3))
+
 ## License
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
